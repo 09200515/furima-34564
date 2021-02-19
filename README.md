@@ -1,24 +1,64 @@
-# README
+# furimaのER図
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
+| Column             | Type    | Options                   |
+| ------------------ | ------- | ------------------------- |
+| nickname           | string  | null: false               |
+| email              | string  | null: false, unique: true |
+| encrypted_password | string  | null: false               |
+| first_name         | string  | null: false               |
+| last_name          | string  | null: false               |
+| birthday           | date    | null: false               |
+| kana_first_name    | string  | null: false               |
+| kana_last_name     | string  | null: false               |
 
-Things you may want to cover:
+### Association
 
-* Ruby version
+- has_many :items
+- has_many :records
 
-* System dependencies
+## items テーブル
+| Column           | Type       | Options           |
+| ---------------- | ---------- | ----------------- |
+| name             | string     | null: false       |
+| description      | text       | null: false       |
+| category_id      | integer    | null: false       |
+| status_id        | integer    | null: false       |
+| price            | integer    | null: false       |
+| delivery_fee_id  | integer    | null: false       |
+| shipping_area_id | integer    | null: false       |
+| shippment_id     | integer    | null: false       |
+| user             | references | foreign_key: true |
 
-* Configuration
+### Association
 
-* Database creation
+- belongs_to :user
+- has_one :record
 
-* Database initialization
+## records テーブル
+| Column   | Type       | Options           |
+| -------- | ---------- | ----------------- |
+| user     | references | foreign_key: true |
+| item     | references | foreign_key: true |
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to :user
+- belongs_to :item
+- has_one :delivery
 
-* Deployment instructions
+## deliverys テーブル
+| Column           | Type       | Options           |
+| ---------------- | ---------- | ----------------- |
+| postal_cord      | string     | null: false       |
+| shipping_area_id | integer    | null: false       |
+| city             | string     | null: false       |
+| address_line1    | string     | null: false       |
+| address_line2    | string     |                   |
+| phone_number     | string     | null: false       |
+| record           | references | foreign_key: true |
 
-* ...
+### Association
+
+- belongs_to :record
+
