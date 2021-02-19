@@ -11,7 +11,6 @@ class User < ApplicationRecord
   validates :kana_first_name, presence: true
   validates :kana_last_name, presence: true
 
-  has_many :items, dependent: destroy
-  
+
 
 end
