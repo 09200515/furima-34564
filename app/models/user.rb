@@ -6,13 +6,18 @@ class User < ApplicationRecord
 
   KATAKANA_REGEXP = /\A[\p{katakana}\u{30fc}]+\z/
 
-  validates :nickname, presence: true
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :birthday, presence: true
-  validates :kana_first_name, presence: true, format: { with: KATAKANA_REGEXP }
-  validates :kana_last_name, presence: true, format: { with: KATAKANA_REGEXP }
-  validates_format_of :password, :with => /([0-9].*[a-zA-Z]|[a-zA-Z].*[0-9])/
+  with_options presence: true do
+    validates :nickname
+    validates :first_name
+    validates :last_name
+    validates :birthday
+    with_options format: { with: KATAKANA_REGEXP } do
+      validates :kana_first_name
+      validates :kana_last_name
+    end
+  end
+
+  validates_format_of :password, with: /([0-9].*[a-zA-Z]|[a-zA-Z].*[0-9])/
 
 
 
