@@ -67,19 +67,19 @@ RSpec.describe User, type: :model do
       end
 
       it 'birthdayの年が空では登録できない' do
-        @user.birthday = '-12-31'
+        @user.birthday = '/12/31'
         @user.valid?
         expect(@user.errors.full_messages).to include "Birthday can't be blank"
       end
 
       it 'birthdayの月が空では登録できない' do
-        @user.birthday = '1995--30'
+        @user.birthday = '1995//30'
         @user.valid?
         expect(@user.errors.full_messages).to include "Birthday can't be blank"
       end
 
       it 'birthdayの日が空では登録できない' do
-        @user.birthday = '1995-12-'
+        @user.birthday = '1995/12/'
         @user.valid?
         expect(@user.errors.full_messages).to include "Birthday can't be blank"
       end
