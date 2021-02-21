@@ -12,6 +12,7 @@ class User < ApplicationRecord
   validates :birthday, presence: true
   validates :kana_first_name, presence: true, format: { with: KATAKANA_REGEXP }
   validates :kana_last_name, presence: true, format: { with: KATAKANA_REGEXP }
+  validates_format_of :password, :with => /([0-9].*[a-zA-Z]|[a-zA-Z].*[0-9])/
 
 
 
