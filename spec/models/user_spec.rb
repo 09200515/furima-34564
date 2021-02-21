@@ -121,6 +121,18 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include "Password is invalid"
       end
 
+      it 'last_nameに英字が含まれている場合登録できない' do
+        @user.last_name = "takaはし"
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Last name is invalid"
+      end
+
+      it 'first_nameに英字が含まれている場合登録できない' do
+        @user.first_name = "keい"
+        @user.valid?
+        expect(@user.errors.full_messages).to include "First name is invalid"
+      end
+
       it 'kana_last_nameがカタカナでない場合登録できない' do
         @user.kana_last_name = "たかはし"
         @user.valid?
