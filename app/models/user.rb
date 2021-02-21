@@ -20,7 +20,4 @@ class User < ApplicationRecord
   end
 
   validates_format_of :password, with: /([0-9].*[a-zA-Z]|[a-zA-Z].*[0-9])/
-
-
-
 end
