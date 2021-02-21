@@ -8,9 +8,11 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nickname
-    validates :first_name
-    validates :last_name
     validates :birthday
+    with_options format: { with: /\A[ぁ-んァ-ヶ一-龥々]+\z/ } do
+      validates :first_name
+      validates :last_name
+    end
     with_options format: { with: KATAKANA_REGEXP } do
       validates :kana_first_name
       validates :kana_last_name
