@@ -4,8 +4,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  KATAKANA_REGEXP = /\A[\p{katakana}\u{30fc}]+\z/
-
   with_options presence: true do
     validates :nickname
     validates :birthday
@@ -13,7 +11,7 @@ class User < ApplicationRecord
       validates :first_name
       validates :last_name
     end
-    with_options format: { with: KATAKANA_REGEXP } do
+    with_options format: { with: /\A[\p{katakana}\u{30fc}]+\z/ } do
       validates :kana_first_name
       validates :kana_last_name
     end
