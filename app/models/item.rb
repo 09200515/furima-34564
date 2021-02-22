@@ -4,9 +4,9 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :description
-    validates :price
-    
-    with_options numericality: { other_than: 1 } do
+    validates :price, numericality: {only_integer: true, greter_than_or_equal_to: 300, less_than_or_equal_to: 99999999}
+    validates :image
+    with_options numericality: { other_than: 1, message: ' select' } do
       validates :category_id
       validates :status_id
       validates :delivery_fee_id
@@ -14,6 +14,7 @@ class Item < ApplicationRecord
       validates :shippment_id
     end
   end
+  
 
 
   belongs_to :user
