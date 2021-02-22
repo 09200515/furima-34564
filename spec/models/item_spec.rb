@@ -49,6 +49,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include 'Shipping area select'
       end
 
+      it '発送までの日数がid:1だと登録できない' do
+        @item.shippment_id = 1
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Shippment select'
+      end
+
       it '販売価格が空だと登録できない' do
         @item.price = ''
         @item.valid?
