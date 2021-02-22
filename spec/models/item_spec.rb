@@ -26,25 +26,25 @@ RSpec.describe Item, type: :model do
       end
 
       it 'カテゴリーの情報がid:1だと登録できない' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Category select'
       end
 
       it '商品の状態の情報がid:1だと登録できない' do
-        @item.status_id = '1'
+        @item.status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Status select'
       end
 
       it '配送料の負担についての情報がid:1だと登録できない' do
-        @item.delivery_fee_id = '1'
+        @item.delivery_fee_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Delivery fee select'
       end
 
       it '発送元の地域の情報がid:1だと登録できない' do
-        @item.shipping_area_id = '1'
+        @item.shipping_area_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Shipping area select'
       end
@@ -56,13 +56,13 @@ RSpec.describe Item, type: :model do
       end
 
       it '販売価格が300円未満だと登録できない' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price must be greater than or equal to 300'
       end
 
       it '販売価格が10000000以上の場合登録できない' do
-        @item.price = '10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price must be less than or equal to 9999999'
       end
