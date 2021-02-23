@@ -29,6 +29,9 @@ class ItemsController < ApplicationController
   end
 
   def update
+    unless user_signed_in? && current_user.id == @item.user_id
+      redirect_to root_path
+    end
     if @item.update(item_params)
       redirect_to item_path(params[:id])
     else
