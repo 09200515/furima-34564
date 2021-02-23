@@ -1,11 +1,12 @@
 class ItemsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit]
+
   def index
     @items = Item.order('created_at DESC')
   end
 
   def new
     @item = Item.new
-    redirect_to new_user_session_path unless user_signed_in?
   end
 
   def create
@@ -23,12 +24,15 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
+    unless user_signed_in? && current_user.id == @item.user_id
+      redirect_to root_path
+    end
   end
 
   def update
-    @item = Item.new(item_params)
-    if @item.save
-      redirect_to root_path
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      redirect_to item_path(params[:id])
     else
       render :edit
     end
