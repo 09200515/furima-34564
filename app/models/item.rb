@@ -18,7 +18,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one_attached :image
 
-  belongs_to :prefecture
+  belongs_to :shipping_area
   belongs_to :category
   belongs_to :status
   belongs_to :delivery_fee
