@@ -15,7 +15,7 @@
 ### Association
 
 - has_many :items
-- has_many :records
+- has_many :orders
 
 ## items テーブル
 | Column           | Type       | Options           |
@@ -56,7 +56,7 @@
 | address_line1    | string     | null: false       |
 | address_line2    | string     |                   |
 | phone_number     | string     | null: false       |
-| record           | references | foreign_key: true |
+| order            | references | foreign_key: true |
 
 ### Association
 
