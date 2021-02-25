@@ -9,7 +9,7 @@ class OrderDelivery
     validates :shipping_area_id, numericality: { other_than: 1, message: 'select' }
     validates :city
     validates :address_line1
-    validates :phone_number
+    validates :phone_number, format: { with: /\A[0-9]+\z/ } 
     validates :token
   end
 
