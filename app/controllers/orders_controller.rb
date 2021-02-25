@@ -6,14 +6,13 @@ class OrdersController < ApplicationController
 
   def create
     @order_delivery = OrderDelivery.new(order_params)
-    binding.pry
+    @item = Item.find(params[:item_id])
     if @order_delivery.valid?
       pay_item
       @order_delivery.save
       redirect_to root_path
       return
     else
-      @item = Item.find(params[:item_id])
       render :index
     end
   end
@@ -28,7 +27,7 @@ class OrdersController < ApplicationController
   def pay_item
     Payjp.api_key = "sk_test_596590d0dba39c027d0982ba"
     Payjp::Charge.create(
-      amount: order_params[:price],
+      amount: @item.price,
       card: order_params[:token],
       currency: 'jpy'
     )
