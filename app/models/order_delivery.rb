@@ -1,6 +1,6 @@
 class OrderDelivery
   include ActiveModel::Model
-  attr_accessor :postal_cord, :shipping_area_id, :city, :address_line1, :address_line2, :phone_number, :user_id
+  attr_accessor :postal_cord, :shipping_area_id, :city, :address_line1, :address_line2, :phone_number, :user_id, :token
 
   with_options presence: true do
     validates :postal_cord, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
@@ -9,6 +9,7 @@ class OrderDelivery
     validates :city
     validates :address_line1
     validates :phone_number
+    validates :token
   end
 
   def save
