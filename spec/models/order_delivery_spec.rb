@@ -32,7 +32,7 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include "Item can't be blank"
       end
-      
+
       it 'トークンが空のとき登録できない' do
         @order_delivery.token = ''
         @order_delivery.valid?
@@ -69,6 +69,12 @@ RSpec.describe OrderDelivery, type: :model do
 
       it '電話番号に全角数字が含まれると購入できない' do
         @order_delivery.phone_number = '０８０１223312'
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include 'Phone number is invalid'
+      end
+
+      it '電話番号が12桁以上だと購入できない' do
+        @order_delivery.phone_number = '090112233445'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include 'Phone number is invalid'
       end
