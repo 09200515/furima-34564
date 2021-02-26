@@ -79,6 +79,12 @@ RSpec.describe OrderDelivery, type: :model do
         expect(@order_delivery.errors.full_messages).to include 'Phone number is invalid'
       end
 
+      it '電話番号が英数混合では購入できない' do
+        @order_delivery.phone_number = '090aaee3344'
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include "Phone number is invalid"
+      end
+
       it '郵便番号に-が入っていないと購入できない' do
         @order_delivery.postal_cord = '2232233'
         @order_delivery.valid?
@@ -89,6 +95,13 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.postal_cord = '１１２-2233'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include 'Postal cord is invalid. Include hyphen(-)'
+      end
+
+      it '郵便番号が英数混合では購入できない' do
+        @order_delivery.postal_cord = '112-aabb'
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include "Postal cord is invalid. Include hyphen(-)"
+        
       end
     end
   end
