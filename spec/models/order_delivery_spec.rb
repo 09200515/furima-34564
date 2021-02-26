@@ -62,7 +62,7 @@ RSpec.describe OrderDelivery, type: :model do
         expect(@order_delivery.errors.full_messages).to include "Phone number can't be blank"
       end
       it '電話番号に-が入っている時購入できない' do
-        @order_delivery.phone_number = 223 - 1122
+        @order_delivery.phone_number = "223 - 1122"
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include 'Phone number is invalid'
       end
