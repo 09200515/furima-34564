@@ -14,7 +14,6 @@ class OrdersController < ApplicationController
       pay_item
       @order_delivery.save
       redirect_to root_path
-      nil
     else
       render :index
     end
