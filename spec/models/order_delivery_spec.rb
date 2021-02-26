@@ -5,6 +5,7 @@ RSpec.describe OrderDelivery, type: :model do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item)
     @order_delivery = FactoryBot.build(:order_delivery, user_id: @user.id, item_id: @item.id)
+    sleep 0.1
   end
 
   describe '商品購入' do
@@ -20,6 +21,18 @@ RSpec.describe OrderDelivery, type: :model do
     end
 
     context '購入できない時' do
+      it 'user_idが空のとき購入できない' do
+        @order_delivery.user_id = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include "User can't be blank"
+      end
+
+      it 'item_idが空の時購入できない' do
+        @order_delivery.item_id = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include "Item can't be blank"
+      end
+      
       it 'トークンが空のとき登録できない' do
         @order_delivery.token = ''
         @order_delivery.valid?
