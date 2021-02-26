@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
-  before_action :redirect, only: [:index, :create]
   before_action :set_item, only: [:index, :create]
+  before_action :redirect, only: [:index, :create]
+
 
   def index
     @order_delivery = OrderDelivery.new
@@ -37,8 +38,7 @@ class OrdersController < ApplicationController
   end
 
   def redirect
-    @item = Item.find(params[:item_id])
-    redirect_to root_path if user_signed_in? && current_user.id == @item.user_id || user_signed_in? && @item.order.present?
+    redirect_to root_path if current_user.id == @item.user_id || @item.order.present?
   end
 
   def set_item
